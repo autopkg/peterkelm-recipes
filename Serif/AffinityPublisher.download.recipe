@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Publisher.</string>
 	<key>Identifier</key>
-	<string>com.github.peterkelm.autopkg-recipes.download.AffinityPublisher</string>
+	<string>com.github.peterkelm.download.AffinityPublisher</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>

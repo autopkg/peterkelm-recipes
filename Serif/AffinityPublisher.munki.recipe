@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Publisher and imports it into Munki.</string>
 	<key>Identifier</key>
-	<string>com.github.peterkelm.autopkg-recipes.munki.AffinityPublisher</string>
+	<string>com.github.peterkelm.munki.AffinityPublisher</string>
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
@@ -39,7 +39,7 @@
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.peterkelm.autopkg-recipes.download.AffinityPublisher</string>
+	<string>com.github.peterkelm.download.AffinityPublisher</string>
 	<key>Process</key>
 	<array>
         <!-- dict>

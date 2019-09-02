@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Designer and imports it into Munki.</string>
 	<key>Identifier</key>
-	<string>com.github.peterkelm.autopkg-recipes.munki.AffinityDesigner</string>
+	<string>com.github.peterkelm.munki.AffinityDesigner</string>
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
@@ -39,7 +39,7 @@
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.peterkelm.autopkg-recipes.download.AffinityDesigner</string>
+	<string>com.github.peterkelm.download.AffinityDesigner</string>
 	<key>Process</key>
 	<array>
         <!-- dict>

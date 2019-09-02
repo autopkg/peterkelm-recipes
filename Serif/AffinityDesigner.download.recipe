@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Designer.</string>
 	<key>Identifier</key>
-	<string>com.github.peterkelm.autopkg-recipes.download.AffinityDesigner</string>
+	<string>com.github.peterkelm.download.AffinityDesigner</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>

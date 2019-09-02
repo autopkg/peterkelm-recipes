@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Photo.</string>
 	<key>Identifier</key>
-	<string>com.github.peterkelm.autopkg-recipes.download.AffinityPhoto</string>
+	<string>com.github.peterkelm.download.AffinityPhoto</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>

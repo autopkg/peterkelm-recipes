@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)</string>
+	<key>Description</key>
+	<string>Downloads the latest version of SceyeWorkbench.</string>
+	<key>Identifier</key>
+	<string>com.github.peterkelm.download.SceyeWorkbench</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>SceyeWorkbench</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>((?P&lt;url&gt;https://www.sceye.eu/downloads/SceyeWorkbench_(?P&lt;major&gt;\d+)_(?P&lt;minor&gt;\d+)_(?P&lt;patch&gt;\d+).dmg))</string>
+				<key>result_output_var_name</key>
+				<string>url</string>
+				<key>url</key>
+				<string>https://www.sceye.eu/en/?Itemid=365</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<!-- key>DOWNLOAD_URL</key>
+				<string>https://www.sceye.eu/downloads/SceyeWorkbench_1_9_7.dmg</string>
+				<key>url</key>
+				<string>%DOWNLOAD_URL%</string -->
+				<key>filename</key>
+				<string>%NAME%-%major%.%minor%.%patch%.dmg</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+	</array>
+</dict>
+</plist>

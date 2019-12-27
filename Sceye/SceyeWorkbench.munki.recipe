@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)</string>
+	<key>Description</key>
+	<string>Downloads the latest version of SceyeWorkbench and imports it into Munki.</string>
+	<key>Identifier</key>
+	<string>com.github.peterkelm.munki.SceyeWorkbench</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string></string>
+		<key>NAME</key>
+		<string>SceyeWorkbench</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>category</key>
+			<string>Graphics</string>
+			<key>description</key>
+			<string>sceye (scanning eye) is the modern art of contactless document scanning. sceye automaticly scans all detected objects, which reside in the active scanning area defined by the patented laser projection system.</string>
+			<key>developer</key>
+			<string>SilverCreations</string>
+			<key>display_name</key>
+			<string>Sceye Workbench</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<!-- key>minimum_os_version</key>
+			<string>10.10</string -->
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.peterkelm.download.SceyeWorkbench</string>
+	<key>Process</key>
+	<array>
+        <dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>/Applications/SceyeWorkbench.app/Contents/Info.plist</string>
+				<key>plist_version_key</key>
+				<string>LSMinimumSystemVersion</string>
+			</dict>
+		</dict>
+		<dict>
+    		<key>Processor</key>
+    		<string>MunkiPkginfoMerger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>blocking_applications</key>
+					<array>
+						<string>SceyeWorkbench</string>
+					</array>
+                    <key>minimum_os_version</key>
+					<string>%version%</string>
+				</dict>	
+			</dict>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

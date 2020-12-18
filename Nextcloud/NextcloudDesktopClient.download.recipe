@@ -2,16 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Comment</key>
-	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)</string>
 	<key>Description</key>
 	<string>Downloads the latest version of Nextcloud Desktop Client.</string>
 	<key>Identifier</key>
 	<string>com.github.peterkelm.download.nextcloud</string>
 	<key>Input</key>
 	<dict>
+		<key>GITHUB_REPO</key>
+		<string>nextcloud/desktop</string>
 		<key>NAME</key>
 		<string>Nextcloud</string>
+		<key>INCLUDE_PRERELEASES</key>
+		<string></string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
@@ -20,19 +22,21 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>url</key>
-				<string>https://github.com/nextcloud/desktop/releases</string>
-				<key>re_pattern</key>
-				<string>(?P&lt;url&gt;https://download.nextcloud.com/desktop/releases/Mac/Installer/Nextcloud-[\d+\.]+.pkg)</string>
+				<key>github_repo</key>
+				<string>%GITHUB_REPO%</string>
+				<key>asset_regex</key>
+				<string>^Nextcloud-.*pkg$</string>
+				<key>include_prereleases</key>
+				<string>%INCLUDE_PRERELEASES%</string>
 			</dict>
 			<key>Processor</key>
-			<string>URLTextSearcher</string>
+			<string>GitHubReleasesInfoProvider</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>url</key>
-				<string>%url%</string>
+				<key>filename</key>
+				<string>%NAME%.pkg</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

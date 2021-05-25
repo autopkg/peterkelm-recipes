@@ -14,6 +14,8 @@ Set MAJOR_VERSION to "Acrobat2015" to download the 'Classic Track' updates for a
 		<string>English</string>
 		<key>MAJOR_VERSION</key>
 		<string>Acrobat2017</string>
+		<key>NAME</key>
+		<string>Acrobat2017Update</string>
 		<key>OS_VERSION</key>
 		<string>10.13.0</string>
 	</dict>

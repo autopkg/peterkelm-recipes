@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download the latest version of Adobe Acrobat 2017 and imports it into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.peterkelm.munki.AdobeAcrobat2017Update</string>
+    <key>Input</key>
+    <dict>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string></string>
+        <key>NAME</key>
+        <string>AdobeAcrobat2017Update</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>category</key>
+            <string>Productivity</string>
+            <key>developer</key>
+            <string>Adobe Systems Inc.</string>
+            <key>display_name</key>
+            <string>Adobe Acrobat 2017 Update</string>
+            <key>description</key>
+            <string>This update provides system requirement enhancements, mitigation for security issues, improved overall stability, bug fixes, and feature enhancements. For a list of specific bug fixes, new features, and other changes in this release, see the Release Notes.</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>update_for</key>
+            <array>
+                <string>Adobe Acrobat 2017</string>
+            </array>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.9</string>
+    <key>ParentRecipe</key>
+    <string>com.github.peterkelm.download.AdobeAcrobat2017Update</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://armmf.adobe.com/arm-manifests/mac/Acrobat2017/acrobat/current_version.txt</string>
+                <key>re_pattern</key>
+                <string>(?P&lt;version&gt;[0-9]*\.[0-9*?\.[0-9]*)</string>
+            </dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>additional_pkginfo</key>
+                <dict>
+                    <key>installs</key>
+                    <array>
+                        <dict>
+                                <key>CFBundleIdentifier</key>
+                                <string>com.adobe.Acrobat.Pro</string>
+                                <key>CFBundleName</key>
+                                <string>Acrobat Pro</string>
+                                <key>CFBundleShortVersionString</key>
+                                <string>%version%</string>
+                                <key>CFBundleVersion</key>
+                                <string>%version%</string>
+                                <key>path</key>
+                                <string>/Applications/Adobe Acrobat 2017/Adobe Acrobat.app</string>
+                                <key>type</key>
+                                <string>application</string>
+                                <key>version_comparison_key</key>
+                                <string>CFBundleShortVersionString</string>
+                        </dict>
+                    </array>
+                    <key>version</key>
+                    <string>%version%</string>
+                </dict>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+        </dict>
+    </array>
+</dict>
+</plist>

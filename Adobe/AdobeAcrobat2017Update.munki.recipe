@@ -30,7 +30,7 @@
             <string>%NAME%</string>
             <key>update_for</key>
             <array>
-                <string>Adobe Acrobat 2017</string>
+                <string>AdobeAcrobatProBaseCustomized</string>
             </array>
             <key>unattended_install</key>
             <true/>

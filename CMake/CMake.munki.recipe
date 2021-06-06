@@ -23,7 +23,7 @@
 				<string>testing</string>
 			</array>
 			<key>category</key>
-			<string>Productivity</string>
+			<string>Developer</string>
 			<key>description</key>
 			<string>CMake is an open-source, cross-platform family of tools designed to build, test and package software.</string>
 			<key>developer</key>

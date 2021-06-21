@@ -36,7 +36,7 @@
                 <key>url</key>
                 <string>%url%?Expires=%expires%&amp;Signature=%signature%&amp;Key-Pair-Id=%key%</string>
 				<key>filename</key>
-				<string>affinity-photo-%version%.dmg</string>
+				<string>%NAME%-%version%.dmg</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

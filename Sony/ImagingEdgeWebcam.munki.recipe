@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Created with Recipe Robot v2.1.0 (https://github.com/homebysix/recipe-robot)</string>
+	<key>Description</key>
+	<string>Downloads the latest version of Imaging Edge Webcam and imports it into Munki.</string>
+	<key>Identifier</key>
+	<string>com.github.peterkelm.munki.ImagingEdgeWebcam</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string></string>
+		<key>NAME</key>
+		<string>ImagingEdgeWebcam</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>An application that lets you use your camera as a high quality webcam</string>
+			<key>category</key>
+			<string>Utility</string>
+			<key>developer</key>
+			<string>Sony</string>
+			<!--string>Sony Imaging Products &amp; Solutions Inc.</string-->
+			<key>display_name</key>
+			<string>Imaging Edge Webcam</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>minimum_os_version</key>
+			<string>10.13</string>
+			<key>unattended_install</key>
+			<true/>
+			<key>uninstall_method</key>
+			<string>uninstall_script</string>
+			<key>uninstall_script</key>
+            <string>#!/bin/sh
+
+PRODUCT_NAME=com.sony.Webcam
+EVALUATION_NAME=jp.co.digital-iz.webcam
+PLUGIN_PATH=/Library/CoreMediaIO/Plug-Ins/DAL/ImagingEdgeWebcam.plugin
+
+PRODUCT_PKG=`pkgutil --pkgs | grep -i $PRODUCT_NAME`
+EVALUATION_PKG=`pkgutil --pkgs | grep -i $EVALUATION_NAME`
+
+if [ $PRODUCT_PKG ]; then
+    pkgutil --forget $PRODUCT_NAME
+fi
+
+if [ $EVALUATION_PKG ]; then
+    pkgutil --forget $EVALUATION_NAME
+fi
+
+if test $EVALUATION_PKG || test $PRODUCT_PKG; then
+    rm -rf $PLUGIN_PATH
+fi
+</string>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.peterkelm.download.ImagingEdgeWebcam</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

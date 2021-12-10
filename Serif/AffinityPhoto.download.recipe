@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Comment</key>
-	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)</string>
+	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)
+
+NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States English) is also valid and there may be other valid language codes as well.</string>
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Photo.</string>
 	<key>Identifier</key>
@@ -12,6 +14,8 @@
 	<dict>
 		<key>NAME</key>
 		<string>AffinityPhoto</string>
+		<key>LANGUAGE_CODE</key>
+		<string>de</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
@@ -25,7 +29,7 @@
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
-				<string>https://store.serif.com/de/update/macos/photo/1/</string>
+				<string>https://store.serif.com/%LANGUAGE_CODE%/update/macos/photo/1/</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLTextSearcher</string>

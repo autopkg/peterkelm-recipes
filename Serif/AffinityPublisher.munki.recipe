@@ -40,17 +40,6 @@
 	<string>com.github.peterkelm.download.AffinityPublisher</string>
 	<key>Process</key>
 	<array>
-        <!-- dict>
-            <key>Processor</key>
-			<string>Versioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>/Applications/Affinity Publisher.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>LSMinimumSystemVersion</string>
-			</dict>
-		</dict -->
 		<dict>
 			<key>Arguments</key>
 			<dict>

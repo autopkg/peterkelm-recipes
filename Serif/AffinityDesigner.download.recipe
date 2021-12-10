@@ -12,10 +12,10 @@ NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States E
 	<string>com.github.peterkelm.download.AffinityDesigner</string>
 	<key>Input</key>
 	<dict>
-		<key>NAME</key>
-		<string>AffinityDesigner</string>
 		<key>LANGUAGE_CODE</key>
 		<string>de</string>
+		<key>NAME</key>
+		<string>AffinityDesigner</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
@@ -37,10 +37,10 @@ NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States E
 		<dict>
 			<key>Arguments</key>
 			<dict>
-                <key>url</key>
-                <string>%url%?Expires=%expires%&amp;Signature=%signature%&amp;Key-Pair-Id=%key%</string>
 				<key>filename</key>
 				<string>%NAME%-%version%.dmg</string>
+				<key>url</key>
+				<string>%url%?Expires=%expires%&amp;Signature=%signature%&amp;Key-Pair-Id=%key%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
@@ -60,17 +60,6 @@ NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States E
 			<key>Processor</key>
 			<string>CodeSignatureVerifier</string>
 		</dict>
-		<!-- dict>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>%pathname%/Affinity Designer.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>CFBundleShortVersionString</string>
-			</dict>
-			<key>Processor</key>
-			<string>Versioner</string>
-		</dict -->
 	</array>
 </dict>
 </plist>

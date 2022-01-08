@@ -11,7 +11,7 @@
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
-		<string></string>
+		<string>apps/serif</string>
 		<key>NAME</key>
 		<string>AffinityPublisher</string>
 		<key>pkginfo</key>
@@ -30,8 +30,6 @@
 			<string>Affinity Publisher</string>
 			<key>name</key>
 			<string>%NAME%</string>
-			<key>minimum_os_version</key>
-			<string>10.9</string>
 			<key>unattended_install</key>
 			<true/>
 		</dict>
@@ -42,33 +40,6 @@
 	<string>com.github.peterkelm.download.AffinityPublisher</string>
 	<key>Process</key>
 	<array>
-        <!-- dict>
-            <key>Processor</key>
-			<string>Versioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>/Applications/Affinity Publisher.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>LSMinimumSystemVersion</string>
-			</dict>
-		</dict -->
-    	<dict>
-    		<key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-            <key>Arguments</key>
-            <dict>
-                <key>additional_pkginfo</key>
-                <dict>
-					<key>blocking_applications</key>
-					<array>
-						<string>Affinity Publisher</string>
-					</array>
-                    <!-- key>minimum_os_version</key>
-					<string>%version%</string -->
-                </dict>
-            </dict>
-        </dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>

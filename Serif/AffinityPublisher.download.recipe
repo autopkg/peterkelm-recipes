@@ -3,13 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>Comment</key>
-	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot)</string>
+	<string>Created with Recipe Robot v1.1.2 (https://github.com/homebysix/recipe-robot).
+
+NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States English) is also valid and there may be other valid language codes as well.</string>
 	<key>Description</key>
 	<string>Downloads the latest version of Affinity Publisher.</string>
 	<key>Identifier</key>
 	<string>com.github.peterkelm.download.AffinityPublisher</string>
 	<key>Input</key>
 	<dict>
+		<key>LANGUAGE_CODE</key>
+		<string>de</string>
 		<key>NAME</key>
 		<string>AffinityPublisher</string>
 	</dict>
@@ -25,7 +29,7 @@
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
-				<string>https://store.serif.com/de/update/macos/publisher/1/</string>
+				<string>https://store.serif.com/%LANGUAGE_CODE%/update/macos/publisher/1/</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLTextSearcher</string>
@@ -33,10 +37,10 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-                <key>url</key>
-                <string>%url%?Expires=%expires%&amp;Signature=%signature%&amp;Key-Pair-Id=%key%</string>
 				<key>filename</key>
 				<string>%NAME%-%version%.dmg</string>
+				<key>url</key>
+				<string>%url%?Expires=%expires%&amp;Signature=%signature%&amp;Key-Pair-Id=%key%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
@@ -56,17 +60,6 @@
 			<key>Processor</key>
 			<string>CodeSignatureVerifier</string>
 		</dict>
-		<!-- dict>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>%pathname%/Affinity Publisher.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>CFBundleShortVersionString</string>
-			</dict>
-			<key>Processor</key>
-			<string>Versioner</string>
-		</dict -->
 	</array>
 </dict>
 </plist>

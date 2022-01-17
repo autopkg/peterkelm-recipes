@@ -5,7 +5,6 @@
 	<key>Comment</key>
 	<string>Created with Recipe Robot v2.2.0 (https://github.com/homebysix/recipe-robot)
 	NOTE: ARCH can be either "x86_64" or "arm64".</string>
-	</string>
 	<key>Description</key>
 	<string>Downloads the latest version of CAD Assistant.</string>
 	<key>Identifier</key>

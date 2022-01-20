@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of 3DWOXDesktop and imports it into Munki.</string>
+	<key>Identifier</key>
+	<string>com.github.peterkelm.munki.3DWOXDesktop</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string></string>
+		<key>NAME</key>
+		<string>3DWOXDesktop</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>category</key>
+			<string>Engineering</string>
+			<key>description</key>
+			<string>3DWOX Desktop is a slicer software for Sindoh 3D printers</string>
+			<key>developer</key>
+			<string>Sindoh</string>
+			<key>display_name</key>
+			<string>3DWOX Desktop</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>minimum_os_version</key>
+			<string>10.10.1</string>
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.peterkelm.download.3DWOXDesktop</string>
+	<key>Process</key>
+	<array>
+		<dict>
+    		<key>Processor</key>
+    		<string>MunkiPkginfoMerger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>version</key>
+					<string>%version%</string>
+					<key>blocking_applications</key>
+					<array>
+						<string>3DWOX Desktop</string>
+					</array>
+				</dict>	
+			</dict>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

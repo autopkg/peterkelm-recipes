@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of 3DWOXDesktop</string>
+	<key>Identifier</key>
+	<string>com.github.peterkelm.download.3DWOXDesktop</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>3DWOXDesktop</string>
+		<key>BASE_URL</key>
+		<string>https://3dprinter.sindoh.com/</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>(/en/file/download/\?fileNm=[0-9]+__3DWOX\+Desktop_v_(?P&lt;version&gt;(\d+\.)?(\d+\.)?\d+).pkg)</string>
+				<key>result_output_var_name</key>
+				<string>URI</string>
+				<key>url</key>
+				<string>%BASE_URL%/support/downloads/3dwox1</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%BASE_URL%/%URI%</string>
+				<key>filename</key>
+				<string>%NAME%-%version%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+	</array>
+</dict>
+</plist>

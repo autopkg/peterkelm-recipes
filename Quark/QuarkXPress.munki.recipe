@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comment</key>
+	<string>Created with Recipe Robot v2.2.0 (https://github.com/homebysix/recipe-robot)</string>
+	<key>Description</key>
+	<string>Downloads the latest version of QuarkXPress and imports it into Munki.</string>
+	<key>Identifier</key>
+	<string>com.github.peterkelm.munki.QuarkXPress</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string></string>
+		<key>NAME</key>
+		<string>QuarkXPress</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>Content Design &amp; Digital Publishing Software. Unleash your creativity and deliver every project as promised, on time and within budget</string>
+			<key>developer</key>
+			<string>Quark Software</string>
+			<key>category</key>
+			<string>Graphics</string>
+			<key>display_name</key>
+			<string>%NAME% %MAJOR_VERSION%</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>unattended_install</key>
+			<true/>
+			<key>postinstall_script</key>
+			<string>#!/bin/sh
+
+# deleting the installer pkg keeps the update installer from running
+rm -rf /Applications/QuarkXPress %MAJOR_VERSION%.app/Contents/SharedSupport/QuarkUpdate/QuarkUpdate\ Installer.pkg
+			</string>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.peterkelm.download.QuarkXPress</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

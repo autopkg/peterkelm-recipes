@@ -36,6 +36,27 @@
 			<string>10.12</string>
 			<key>unattended_install</key>
 			<true/>
+			<key>uninstall_script</key>
+			<string>## Kill Process
+pgrep "Imaging Edge Desktop" | xargs kill -9
+
+## Remove login service
+echo "Removing Login Service"
+osascript -e 'tell application "System Events" to delete login item "Imaging Edge Desktop"' 
+
+## Remove application
+echo "Removing Imaging Edge Desktop from /Applications/ folder"
+/bin/rm -r /Applications/Imaging\ Edge\ Desktop.app;
+
+## Forget we ever got installed
+echo "Removing installation info"
+/usr/sbin/pkgutil --forget com.sony.ImagingEdgeDesktop.pkg;
+/bin/rm -f ~/Library/Preferences/com.sony.ImagingEdgeDesktop.plist;
+/usr/bin/defaults delete com.sony.ImagingEdgeDesktop;
+killall -HUP cfprefsd
+
+echo "Done."
+			</string>
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
@@ -55,6 +76,18 @@
 			<key>Processor</key>
 			<string>MunkiImporter</string>
 		</dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/payload/</string>  
+                    <string>%RECIPE_CACHE_DIR%/unpack/</string>                      
+                </array>
+            </dict>
+        </dict>
 	</array>
 </dict>
 </plist>

@@ -11,7 +11,7 @@
 	<key>Input</key>
 	<dict>
 		<key>DOWNLOAD_URL</key>
-		<string>https://support.d-imaging.sony.co.jp/disoft_DL/desktop_DL/mac?fm=de</string>
+		<string>https://support.d-imaging.sony.co.jp/disoft_DL/imagingedge_DL/mac?fm=dt</string>
 		<key>NAME</key>
 		<string>ImagingEdgeDesktop</string>
 	</dict>
@@ -39,12 +39,12 @@
 			<dict>
 				<key>expected_authority_names</key>
 				<array>
-					<string>Developer ID Installer: Sony Imaging Products &amp; Solutions Inc. (EKS2CRZPNK)</string>
+					<string>Developer ID Installer: Sony Home Entertainment &amp; Sound Products Inc. (VH49J2FYHE)</string>
 					<string>Developer ID Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>
 				<key>input_path</key>
-				<string>%pathname%/ied_*.pkg</string>
+				<string>%pathname%/IE_INST.pkg</string>
 			</dict>
 			<key>Processor</key>
 			<string>CodeSignatureVerifier</string>
@@ -55,7 +55,7 @@
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/unpack</string>
 				<key>flat_pkg_path</key>
-				<string>%pathname%/ied_*.pkg</string>
+				<string>%pathname%/IE_INST.pkg</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -68,7 +68,7 @@
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/payload</string>
 				<key>pkg_payload_path</key>
-				<string>%RECIPE_CACHE_DIR%/unpack/Imaging_Edge.pkg/Payload</string>
+				<string>%RECIPE_CACHE_DIR%/unpack/Startup.pkg/Payload</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -79,7 +79,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/payload/Imaging Edge Desktop.app/Contents/Info.plist</string>
+				<string>%RECIPE_CACHE_DIR%/payload/Edit.app/Contents/Info.plist</string>
 				<key>plist_version_key</key>
 				<string>CFBundleShortVersionString</string>
 			</dict>

@@ -16,6 +16,8 @@ NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States E
 		<string>de</string>
 		<key>NAME</key>
 		<string>AffinityDesigner</string>
+		<key>VERSION</key>
+		<string>2</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
@@ -25,11 +27,11 @@ NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States E
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>((?P&lt;url&gt;https://d1gl0nrskhax8d\.cloudfront\.net/macos/designer/\d+(\.\d*){2,}/(?P&lt;filename&gt;affinity-designer-(?P&lt;version&gt;\d+(\.\d*){2,})\.dmg))\?Expires=(?P&lt;expires&gt;\d+)&amp;amp;Signature=(?P&lt;signature&gt;[\w\~\-]+)&amp;amp;Key-Pair-Id=(?P&lt;key&gt;[\w]+))</string>
+				<string>((?P&lt;url&gt;https://d1gl0nrskhax8d\.cloudfront\.net/macos/designer\d?/\d+(\.\d*){2,}/(?P&lt;filename&gt;affinity-designer-(?P&lt;version&gt;\d+(\.\d*){2,})\.dmg))\?Expires=(?P&lt;expires&gt;\d+)&amp;amp;Signature=(?P&lt;signature&gt;[\w\~\-]+)&amp;amp;Key-Pair-Id=(?P&lt;key&gt;[\w]+))</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
-				<string>https://store.serif.com/%LANGUAGE_CODE%/update/macos/designer/1/</string>
+				<string>https://store.serif.com/%LANGUAGE_CODE%/update/macos/designer/%VERSION%/</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLTextSearcher</string>
@@ -52,10 +54,33 @@ NOTE: LANGUAGE_CODE is currently set to "de" (German).  "en-us" (United States E
 		<dict>
 			<key>Arguments</key>
 			<dict>
+				<key>pattern</key>
+				<string>%pathname%/Affinity Designer*.app</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>info_path</key>
+				<string>%pathname%/%dmg_found_filename%</string>
+				<key>plist_keys</key>
+				<dict>
+					<key>CFBundleIdentifier</key>
+					<string>bundleid</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>PlistReader</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
 				<key>input_path</key>
-				<string>%pathname%/Affinity Designer.app</string>
+				<string>%pathname%/%dmg_found_filename%</string>
 				<key>requirement</key>
-				<string>anchor apple generic and identifier "com.seriflabs.affinitydesigner" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "6LVTQB9699")</string>
+				<string>anchor apple generic and identifier "%bundleid%" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "6LVTQB9699")</string>
 			</dict>
 			<key>Processor</key>
 			<string>CodeSignatureVerifier</string>

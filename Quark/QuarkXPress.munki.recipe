@@ -36,7 +36,7 @@
 			<string>#!/bin/sh
 
 # deleting the installer pkg keeps the update installer from running
-rm -rf /Applications/QuarkXPress %MAJOR_VERSION%.app/Contents/SharedSupport/QuarkUpdate/QuarkUpdate\ Installer.pkg
+rm -rf /Applications/QuarkXPress\ %MAJOR_VERSION%.app/Contents/SharedSupport/QuarkUpdate/QuarkUpdate\ Installer.pkg
 			</string>
 		</dict>
 	</dict>

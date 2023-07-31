@@ -23,7 +23,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>(a href="(?P&lt;url&gt;https://files.quark.com/Protected/qxp/QX%MAJOR_VERSION%_[0-9]+_Mac_Installer.dmg)")</string>
+				<string>(a href="(?P&lt;url&gt;https://files.quark.com/Protected/qxp/QX%MAJOR_VERSION%_[0-9]+_MacUB_Installer.dmg)")</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>

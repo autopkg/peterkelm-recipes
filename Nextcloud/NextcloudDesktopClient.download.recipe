@@ -9,7 +9,7 @@
 	<key>Input</key>
 	<dict>
 		<key>GITHUB_REPO</key>
-		<string>nextcloud/desktop</string>
+		<string>nextcloud-releases/desktop</string>
 		<key>NAME</key>
 		<string>Nextcloud</string>
 		<key>INCLUDE_PRERELEASES</key>

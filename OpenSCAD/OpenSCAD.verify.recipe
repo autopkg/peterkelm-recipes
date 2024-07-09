@@ -56,6 +56,8 @@
                 <string>com.github.autopkg.gerardkok-recipes.SharedProcessors/GPGSignatureVerifier</string>
                 <key>Arguments</key>
                 <dict>
+                    <key>keyserver</key>
+                    <string>hkps://keyserver.ubuntu.com</string>
                     <key>public_key_id</key>
                     <string>%KEYID%</string>
                     <key>distribution_file</key>

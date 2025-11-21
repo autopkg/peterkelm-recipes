@@ -20,15 +20,13 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>re_pattern</key>
-				<string>((?P&lt;url&gt;https://[A-Za-z0-9\.\-\/]+/OpenSCAD-(?P&lt;version&gt;\d+([\-\.]\d+)+).dmg))</string>
-				<key>result_output_var_name</key>
-				<string>url</string>
-				<key>url</key>
-				<string>https://openscad.org/inc/mac_release_links.js</string>
+				<key>asset_regex</key>
+				<string>.*\.dmg$</string>
+				<key>github_repo</key>
+				<string>openscad/openscad</string>
 			</dict>
 			<key>Processor</key>
-			<string>URLTextSearcher</string>
+			<string>GitHubReleasesInfoProvider</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>

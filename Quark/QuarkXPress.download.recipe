@@ -5,13 +5,13 @@
 	<key>Comment</key>
 	<string>Created with Recipe Robot v2.2.0 (https://github.com/homebysix/recipe-robot)</string>
 	<key>Description</key>
-	<string>Downloads the latest version of QuarkXPress.</string>
+	<string>Downloads the latest version of QuarkXPress</string>
 	<key>Identifier</key>
 	<string>com.github.peterkelm.download.QuarkXPress</string>
 	<key>Input</key>
 	<dict>
 		<key>MAJOR_VERSION</key>
-		<string>2022</string>
+		<string>2025</string>
 		<key>NAME</key>
 		<string>QuarkXPress</string>
 	</dict>
@@ -23,7 +23,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>(a href="(?P&lt;url&gt;https://files.quark.com/Protected/qxp/QX%MAJOR_VERSION%_[0-9]+_Mac(UB)?_Installer.dmg)")</string>
+				<string>&lt;a href=".*utm_content=qxp%MAJOR_VERSION%v(?P&lt;version&gt;\d+\.\d+(\.\d+)?).*file_url=(?P&lt;url&gt;https://files\.quark\.com/Protected/[a-z]{3}/[A-F0-9]{32}\.dmg)"</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>

@@ -35,7 +35,7 @@
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.peterkelm.verify.OpenSCAD</string>
+	<string>com.github.peterkelm.download.OpenSCAD</string>
 	<key>Process</key>
 	<array>
 		<dict>

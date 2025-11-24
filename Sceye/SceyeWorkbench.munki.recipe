@@ -30,8 +30,6 @@
 			<string>Sceye Workbench</string>
 			<key>name</key>
 			<string>%NAME%</string>
-			<!-- key>minimum_os_version</key>
-			<string>10.10</string -->
 			<key>unattended_install</key>
 			<true/>
 		</dict>

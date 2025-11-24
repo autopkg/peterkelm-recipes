@@ -33,10 +33,6 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<!-- key>DOWNLOAD_URL</key>
-				<string>https://www.sceye.eu/downloads/SceyeWorkbench_1_9_7.dmg</string>
-				<key>url</key>
-				<string>%DOWNLOAD_URL%</string -->
 				<key>filename</key>
 				<string>%NAME%-%major%.%minor%.%patch%.dmg</string>
 			</dict>

@@ -26,7 +26,6 @@
 			<string>Utility</string>
 			<key>developer</key>
 			<string>Sony</string>
-			<!--string>Sony Imaging Products &amp; Solutions Inc.</string-->
 			<key>display_name</key>
 			<string>Imaging Edge Webcam</string>
 			<key>name</key>

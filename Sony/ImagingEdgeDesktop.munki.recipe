@@ -36,6 +36,8 @@
 			<string>10.12</string>
 			<key>unattended_install</key>
 			<true/>
+			<key>uninstall_method</key>
+            <string>uninstall_script</string>
 			<key>uninstall_script</key>
 			<string>## Kill Process
 pgrep "Imaging Edge Desktop" | xargs kill -9

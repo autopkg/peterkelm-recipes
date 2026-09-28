@@ -34,7 +34,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>filename</key>
-				<string>%NAME%-%major%.%minor%.%patch%.dmg</string>
+				<string>%NAME%-%major%.%minor%.%patch%.dmg.zip</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

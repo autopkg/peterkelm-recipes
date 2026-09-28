@@ -21,11 +21,11 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>((?P&lt;url&gt;https://www.sceye.eu/downloads/SceyeWorkbench_(?P&lt;major&gt;\d+)_(?P&lt;minor&gt;\d+)_(?P&lt;patch&gt;\d+).dmg))</string>
+				<string>((?P&lt;url&gt;https://sceye-scanner.de/wp-content/uploads/\d+/\d+/sceyeMacSetup_(?P&lt;major&gt;\d+)_(?P&lt;minor&gt;\d+)_(?P&lt;patch&gt;\d+).zip))</string>
 				<key>result_output_var_name</key>
 				<string>url</string>
 				<key>url</key>
-				<string>https://www.sceye.eu/en/?Itemid=365</string>
+				<string>https://www.sceye-scanner.de/service/downloads/</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLTextSearcher</string>

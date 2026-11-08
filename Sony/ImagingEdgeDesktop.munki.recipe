@@ -18,7 +18,9 @@
 		<dict>
 			<key>blocking_applications</key>
 			<array>
-				<string>Imaging Edge Desktop.app</string>
+				<string>Edit.app</string>
+				<string>Remote.app</string>
+				<string>Viewer.app</string>
 			</array>
 			<key>catalogs</key>
 			<array>
@@ -33,32 +35,148 @@
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>minimum_os_version</key>
-			<string>10.12</string>
+			<string>10.15</string>
 			<key>unattended_install</key>
 			<true/>
-			<key>uninstall_method</key>
-            <string>uninstall_script</string>
-			<key>uninstall_script</key>
-			<string>## Kill Process
-pgrep "Imaging Edge Desktop" | xargs kill -9
+			<key>unattended_uninstall</key>
+			<true/>
+			<key>postinstall_script</key>
+			<string>#!/bin/sh
+# Startup.pkg's postinstall runs:
+#   su "$USER" -c "installer -pkg ./INST.pkg -target CurrentUserHomeDirectory"
+# Managed Software Center runs that as root, so EULA_PP_Checker.app lands in
+# /var/root/Library/Application Support/Imaging Edge. Remote, Viewer, and Edit
+# look for that bundle in the logged-in user's home and refuse to start
+# ("necessary files do not exist") when it is missing.
 
-## Remove login service
-echo "Removing Login Service"
-osascript -e 'tell application "System Events" to delete login item "Imaging Edge Desktop"' 
+ROOT_SUPPORT="/var/root/Library/Application Support/Imaging Edge"
+STASH="/Library/Application Support/Imaging Edge"
+AGENT_LABEL="com.github.peterkelm.imaging-edge-user-support"
+AGENT_PLIST="/Library/LaunchAgents/${AGENT_LABEL}.plist"
+AGENT_SCRIPT="${STASH}/install-user-support.sh"
 
-## Remove application
-echo "Removing Imaging Edge Desktop from /Applications/ folder"
-/bin/rm -r /Applications/Imaging\ Edge\ Desktop.app;
+if [ -d "${ROOT_SUPPORT}/EULA_PP_Checker.app" ]; then
+  /bin/mkdir -p "${STASH}"
+  /usr/bin/ditto "${ROOT_SUPPORT}/EULA_PP_Checker.app" "${STASH}/EULA_PP_Checker.app"
+  /bin/mkdir -p "${STASH}/OnnxData"
+elif [ ! -d "${STASH}/EULA_PP_Checker.app" ]; then
+  echo "Imaging Edge support files were not installed to ${ROOT_SUPPORT}"
+  exit 1
+fi
 
-## Forget we ever got installed
-echo "Removing installation info"
-/usr/sbin/pkgutil --forget com.sony.ImagingEdgeDesktop.pkg;
-/bin/rm -f ~/Library/Preferences/com.sony.ImagingEdgeDesktop.plist;
-/usr/bin/defaults delete com.sony.ImagingEdgeDesktop;
-killall -HUP cfprefsd
+/usr/sbin/chown -R root:admin "${STASH}"
+/bin/chmod -R a+rX "${STASH}"
 
-echo "Done."
-			</string>
+/bin/cat &gt; "${AGENT_SCRIPT}" &lt;&lt;'AGENT_EOF'
+#!/bin/sh
+SRC="/Library/Application Support/Imaging Edge/EULA_PP_Checker.app"
+DEST="${HOME}/Library/Application Support/Imaging Edge"
+DST="${DEST}/EULA_PP_Checker.app"
+
+if [ ! -d "${SRC}" ]; then
+  exit 0
+fi
+
+/bin/mkdir -p "${DEST}/OnnxData"
+
+copy_needed=0
+if [ ! -d "${DST}" ]; then
+  copy_needed=1
+else
+  src_ver=$(/usr/bin/defaults read "${SRC}/Contents/Info" CFBundleShortVersionString 2&gt;/dev/null || true)
+  dst_ver=$(/usr/bin/defaults read "${DST}/Contents/Info" CFBundleShortVersionString 2&gt;/dev/null || true)
+  if [ "${src_ver}" != "${dst_ver}" ]; then
+    copy_needed=1
+  fi
+fi
+
+if [ "${copy_needed}" -eq 1 ]; then
+  /bin/rm -rf "${DST}"
+  /usr/bin/ditto "${SRC}" "${DST}"
+fi
+
+/bin/chmod 775 "${DEST}" "${DEST}/OnnxData"
+exit 0
+AGENT_EOF
+
+/bin/chmod 755 "${AGENT_SCRIPT}"
+/usr/sbin/chown root:admin "${AGENT_SCRIPT}"
+
+/bin/cat &gt; "${AGENT_PLIST}" &lt;&lt;PLIST_EOF
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+	&lt;key&gt;Label&lt;/key&gt;
+	&lt;string&gt;${AGENT_LABEL}&lt;/string&gt;
+	&lt;key&gt;ProgramArguments&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;${AGENT_SCRIPT}&lt;/string&gt;
+	&lt;/array&gt;
+	&lt;key&gt;RunAtLoad&lt;/key&gt;
+	&lt;true/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+PLIST_EOF
+
+/usr/sbin/chown root:wheel "${AGENT_PLIST}"
+/bin/chmod 644 "${AGENT_PLIST}"
+
+copy_for_user() {
+  user="$1"
+  if [ -z "${user}" ] || [ "${user}" = "root" ] || [ "${user}" = "loginwindow" ]; then
+    return 0
+  fi
+  home=$(/usr/bin/dscl . -read "/Users/${user}" NFSHomeDirectory 2&gt;/dev/null | /usr/bin/awk '{print $2}')
+  if [ -z "${home}" ] || [ ! -d "${home}" ]; then
+    return 0
+  fi
+  HOME="${home}" /bin/sh "${AGENT_SCRIPT}"
+  /usr/sbin/chown -R "${user}" "${home}/Library/Application Support/Imaging Edge"
+  uid=$(/usr/bin/id -u "${user}" 2&gt;/dev/null || true)
+  if [ -n "${uid}" ]; then
+    /bin/launchctl bootout "gui/${uid}/${AGENT_LABEL}" 2&gt;/dev/null || true
+    /bin/launchctl enable "gui/${uid}/${AGENT_LABEL}" 2&gt;/dev/null || true
+    /bin/launchctl bootstrap "gui/${uid}" "${AGENT_PLIST}" 2&gt;/dev/null || true
+  fi
+}
+
+copy_for_user "$(/usr/bin/stat -f %Su /dev/console)"
+/usr/bin/who | /usr/bin/awk '{print $1}' | /usr/bin/sort -u | while read -r user; do
+  copy_for_user "${user}"
+done
+
+if [ ! -d "${STASH}/EULA_PP_Checker.app" ] || [ ! -x "${AGENT_SCRIPT}" ] || [ ! -f "${AGENT_PLIST}" ]; then
+  exit 1
+fi
+exit 0
+</string>
+			<key>postuninstall_script</key>
+			<string>#!/bin/sh
+AGENT_LABEL="com.github.peterkelm.imaging-edge-user-support"
+AGENT_PLIST="/Library/LaunchAgents/${AGENT_LABEL}.plist"
+
+if [ -f "${AGENT_PLIST}" ]; then
+  /usr/bin/who | /usr/bin/awk '{print $1}' | /usr/bin/sort -u | while read -r user; do
+    uid=$(/usr/bin/id -u "${user}" 2&gt;/dev/null || true)
+    if [ -n "${uid}" ]; then
+      /bin/launchctl bootout "gui/${uid}/${AGENT_LABEL}" 2&gt;/dev/null || true
+    fi
+  done
+  /bin/rm -f "${AGENT_PLIST}"
+fi
+
+/bin/rm -rf "/Library/Application Support/Imaging Edge"
+/bin/rm -rf "/var/root/Library/Application Support/Imaging Edge"
+
+for home in /Users/*; do
+  if [ -d "${home}/Library/Application Support/Imaging Edge" ]; then
+    /bin/rm -rf "${home}/Library/Application Support/Imaging Edge"
+  fi
+done
+
+exit 0
+</string>
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
@@ -78,18 +196,18 @@ echo "Done."
 			<key>Processor</key>
 			<string>MunkiImporter</string>
 		</dict>
-        <dict>
-            <key>Processor</key>
-            <string>PathDeleter</string>
-            <key>Arguments</key>
-            <dict>
-                <key>path_list</key>
-                <array>
-                    <string>%RECIPE_CACHE_DIR%/payload/</string>  
-                    <string>%RECIPE_CACHE_DIR%/unpack/</string>                      
-                </array>
-            </dict>
-        </dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/payload/</string>
+					<string>%RECIPE_CACHE_DIR%/unpack/</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
